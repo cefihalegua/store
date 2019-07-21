@@ -1,9 +1,9 @@
-from bottle import route, run, template, static_file, get, post, delete, request
-from sys import argv
+from bottle import run, template, static_file, get, post, delete, request, TEMPLATE_PATH
 import json
-import pymysql
+import os
 import database_sql
 
+TEMPLATE_PATH.insert(0, os.path.dirname(__file__))
 
 @get("/admin")
 def admin_portal():
@@ -42,6 +42,36 @@ def send_categories():
     result = database_sql.return_categories()
     return json.dumps(result)
 
+@delete('/category/<id>')
+def delete_category(id):
+    result = database_sql.delete_category(id)
+    return json.dumps(result)
+
+@post('/product')
+def add_edit_product():
+    data = request.POST.dict
+    result = database_sql.add_edit_product(data)
+    return result
+
+@get('/products')
+def get_products():
+    result = database_sql.get_products()
+    return json.dumps(result)
+
+@get('/product/<id>')
+def get_product(id):
+    result = database_sql.get_product(id)
+    return result
+
+@delete('/product/<id>')
+def delete_product(id):
+    result = database_sql.delete_product(id)
+    return json.dumps(result)
+
+@get('/category/<id>/products')
+def products_by_category(id):
+    result = database_sql.products_by_category(id)
+    return result
 
 @post("/product")
 def add_edit_product():
