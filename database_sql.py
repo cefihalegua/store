@@ -74,32 +74,6 @@ def add_edit_product(product_details):
         return return_status
 
 
-def return_products():
-    try:
-        with connection.cursor() as cursor:
-            sql = "select * from products"
-            cursor.execute(sql)
-            products = cursor.fetchall()
-            return_data = {"STATUS": "SUCCESS", "PRODUCTS": products}
-            return return_data
-    except:
-        return_data = {"STATUS": "ERROR", "PRODUCTS": products}
-        return return_data
-
-
-def return_products_by_category(category_id):
-    try:
-        with connection.cursor() as cursor:
-            sql = f"select * from products where category_id = {category_id}"
-            cursor.execute(sql)
-            products = cursor.fetchall()
-            return_data = {"STATUS": "SUCCESS", "PRODUCTS": products}
-            return return_data
-
-    except:
-        return_data = {"STATUS": "ERROR", "PRODUCTS": products}
-        return return_data
-
 def get_products():
     try:
         with connection.cursor() as cur:
