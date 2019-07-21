@@ -43,5 +43,24 @@ def send_categories():
     return json.dumps(result)
 
 
+@post("/product")
+def add_edit_product():
+    product_details = request.POST.dict
+    result = database_sql.add_edit_product(product_details)
+    return json.dumps(result)
+
+
+@get("/products")
+def display_products():
+    result = database_sql.return_products()
+    return json.dumps(result)
+
+
+@get("/category/<id>/products")
+def display_products_by_category(id):
+    result = database_sql.return_products_by_category(id)
+    return json.dumps(result)
+
+
 run(host='localhost', port=8000)
 
